@@ -37,9 +37,10 @@ const SignupForm = () => {
       toast.success("Account created successfully");
       form.reset();
       router.push("/");
+    } else {
+      toast.error("User already exists");
     }
 
-    toast.error("User already exists");
   };
 
   return (
