@@ -1,5 +1,6 @@
 "use client";
 
+import { signUpAction } from "@/actions/auth-action";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -26,7 +27,7 @@ const SignupForm = () => {
   });
 
   const onSubmit = async (values: SignUpType) => {
-    console.log(values);
+    await signUpAction(values);
 
     form.reset();
   };
