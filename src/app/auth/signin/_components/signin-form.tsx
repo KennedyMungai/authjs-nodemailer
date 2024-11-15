@@ -25,7 +25,7 @@ const SigninForm = () => {
   });
 
   const onSubmit = async (values: SignInType) => {
-    const res = await signInAction(values);
+    await signInAction(values);
 
     form.reset();
   };
