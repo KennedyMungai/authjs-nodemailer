@@ -1,7 +1,7 @@
 "use server";
 
 import { actionClient } from "@/lib/safe-action";
-import { SignupSchema } from "@/lib/validation";
+import { SignInSchema, SignupSchema } from "@/lib/validation";
 import bcrypt from "bcryptjs";
 
 export const signUpAction = actionClient
@@ -17,3 +17,9 @@ export const signUpAction = actionClient
       console.log(hashedPassword);
     },
   );
+
+export const signInAction = actionClient
+  .schema(SignInSchema)
+  .action(async ({ parsedInput: { email, password } }) => {
+    console.log({ email, password });
+  });

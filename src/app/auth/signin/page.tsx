@@ -1,3 +1,5 @@
+import SigninForm from "@/app/auth/signin/_components/signin-form";
+
 const SigninPage = () => {
   return (
     <main className="mt-4">
@@ -5,7 +7,7 @@ const SigninPage = () => {
         <h1 className="text-3xl font-bold tracking-tight">Sign In</h1>
         <div className="my-4 h-0.5 bg-muted" />
 
-        {/* TODO: Add signin form */}
+        <SigninForm />
       </div>
     </main>
   );
