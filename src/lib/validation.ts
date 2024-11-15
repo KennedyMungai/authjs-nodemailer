@@ -3,7 +3,11 @@ import { z } from "zod";
 export const SignupSchema = z
   .object({
     name: z.string().min(1, "Name is required"),
-    email: z.string().min(1, "Email is required").email("Invalid email"),
+    email: z
+      .string()
+      .min(1, "Email is required")
+      .email("Invalid email")
+      .toLowerCase(),
     password: z.string().min(6, "Password should be at least 6 characters"),
     confirmPassword: z.string(),
   })
@@ -15,7 +19,11 @@ export const SignupSchema = z
 export type SignUpType = z.infer<typeof SignupSchema>;
 
 export const SignInSchema = z.object({
-  email: z.string().min(1, "Email is required").email("Invalid email"),
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .email("Invalid email")
+    .toLowerCase(),
   password: z.string().min(6, "Password should be at least 6 characters"),
 });
 
