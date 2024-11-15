@@ -41,4 +41,5 @@ export const signInAction = actionClient
     await signIn("credentials", { email, password, redirect: false });
   });
 
-export const signOutAction = async () => await signOut();
+export const signOutAction = async () =>
+  await signOut({ redirectTo: "/auth/signin" });
