@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { signOutAction } from "@/actions/auth-action";
 
 const Navbar = () => {
   return (
@@ -18,6 +21,11 @@ const Navbar = () => {
             <Button variant={"outline"} size="sm" asChild>
               <Link href="/auth/signup">Sign Up</Link>
             </Button>
+          </li>
+          <li>
+            <form action={signOutAction}>
+              <Button>Sign Out</Button>
+            </form>
           </li>
         </ul>
       </div>
