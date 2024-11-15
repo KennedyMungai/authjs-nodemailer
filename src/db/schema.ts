@@ -1,22 +1,35 @@
 import {
   boolean,
   integer,
+  pgEnum,
   pgTable,
   primaryKey,
   text,
   timestamp,
+  uniqueIndex,
+  varchar,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccountType } from "next-auth/adapters";
 
-export const users = pgTable("user", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => crypto.randomUUID()),
-  name: text("name"),
-  email: text("email").unique(),
-  emailVerified: timestamp("emailVerified", { mode: "date" }),
-  image: text("image"),
-});
+export const roleEnum = pgEnum("role", ["user", "admin"]);
+
+export const users = pgTable(
+  "user",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    name: text("name"),
+    email: text("email").unique(),
+    emailVerified: timestamp("emailVerified", { mode: "date" }),
+    image: text("image"),
+    password: varchar("password", { length: 512 }),
+    role: roleEnum("role").notNull().default("user"),
+  },
+  (table) => ({
+    emailUniqueIndex: uniqueIndex("emailUniqueIndex").on(table.email),
+  }),
+);
 
 export const accounts = pgTable(
   "account",
