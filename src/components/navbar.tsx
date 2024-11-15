@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 const Navbar = () => {
   return (
     <nav className="h-14 border-b p-2">
-      <div className="container flex h-full items-center justify-between">
+      <div className="container mx-auto flex h-full max-w-4xl items-center justify-between">
         <h3 className="text-xl font-semibold tracking-tight">
           <Link href="/">Authy</Link>
         </h3>
