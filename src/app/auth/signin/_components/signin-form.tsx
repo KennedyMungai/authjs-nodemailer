@@ -13,9 +13,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { SignInSchema, SignInType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 const SigninForm = () => {
+  const router = useRouter();
+
   const form = useForm<SignInType>({
     resolver: zodResolver(SignInSchema),
     defaultValues: {
@@ -28,6 +31,8 @@ const SigninForm = () => {
     await signInAction(values);
 
     form.reset();
+
+    router.refresh();
   };
 
   return (
