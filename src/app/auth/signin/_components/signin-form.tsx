@@ -11,7 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { SignInSchema, SignInType, SignUpType } from "@/lib/validation";
+import { SignInSchema, SignInType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -19,14 +19,12 @@ const SigninForm = () => {
   const form = useForm<SignInType>({
     resolver: zodResolver(SignInSchema),
     defaultValues: {
-      name: "",
       email: "",
       password: "",
-      confirmPassword: "",
     },
   });
 
-  const onSubmit = async (values: SignUpType) => {
+  const onSubmit = async (values: SignInType) => {
     await signInAction(values);
 
     form.reset();
