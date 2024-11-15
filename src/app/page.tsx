@@ -1,7 +1,7 @@
-import { getSession } from "@/lib/session-hooks";
+import { protectServer } from "@/lib/session-hooks";
 
 const HomePage = async () => {
-  await getSession();
+  await protectServer();
 
   return <div>HomePage</div>;
 };
