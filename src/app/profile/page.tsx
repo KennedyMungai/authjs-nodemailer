@@ -6,7 +6,7 @@ const ProfilePage = async () => {
   return (
     <main className="mt-4">
       <div className="container mx-auto">
-        <h1 className="text-3xl font-bold tracking-tight">Sign In</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Profile</h1>
         <div className="my-4 h-0.5 bg-muted" />
       </div>
     </main>
