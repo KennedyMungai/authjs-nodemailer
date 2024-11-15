@@ -1,5 +1,6 @@
 "use server";
 
+import { signIn } from "@/auth";
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { actionClient } from "@/lib/safe-action";
@@ -37,5 +38,5 @@ export const signUpAction = actionClient
 export const signInAction = actionClient
   .schema(SignInSchema)
   .action(async ({ parsedInput: { email, password } }) => {
-    console.log({ email, password });
+    await signIn("credentials", { email, password, redirect: false });
   });
