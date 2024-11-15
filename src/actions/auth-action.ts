@@ -3,9 +3,9 @@
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { actionClient } from "@/lib/safe-action";
+import { findUserByEmail } from "@/lib/user-queries";
 import { SignInSchema, SignupSchema } from "@/lib/validation";
 import bcrypt from "bcryptjs";
-import { eq } from "drizzle-orm";
 
 export const signUpAction = actionClient
   .schema(SignupSchema)
@@ -15,10 +15,7 @@ export const signUpAction = actionClient
         throw new Error("Passwords do not match");
       }
 
-      const [existingUser] = await db
-        .select()
-        .from(users)
-        .where(eq(users.email, email));
+      const existingUser = await findUserByEmail(email);
 
       if (existingUser) {
         throw new Error("User already exists");
