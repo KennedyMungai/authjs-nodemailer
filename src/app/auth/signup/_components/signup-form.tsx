@@ -13,10 +13,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { SignupSchema, SignUpType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 const SignupForm = () => {
+  const router = useRouter();
+
   const form = useForm<SignUpType>({
     resolver: zodResolver(SignupSchema),
     defaultValues: {
@@ -29,7 +32,10 @@ const SignupForm = () => {
 
   const onSubmit = async (values: SignUpType) => {
     await signUpAction(values)
-      .then(() => toast.success("Account created successfully"))
+      .then(() => {
+        toast.success("Account created successfully");
+        router.push("/");
+      })
       .catch((error) => toast.error(error.message));
 
     form.reset();
