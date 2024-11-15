@@ -1,6 +1,12 @@
 import SigninForm from "@/app/auth/signin/_components/signin-form";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
-const SigninPage = () => {
+const SigninPage = async () => {
+  const session = await auth();
+
+  if (session) redirect("/");
+
   return (
     <main className="mt-4">
       <div className="container mx-auto">
