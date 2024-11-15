@@ -1,6 +1,12 @@
 import SignupForm from "@/app/auth/signup/_components/signup-form";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
-const SignupPage = () => {
+const SignupPage = async () => {
+  const session = await auth();
+
+  if (session) redirect("/");
+
   return (
     <main className="mt-4">
       <div className="container mx-auto">
