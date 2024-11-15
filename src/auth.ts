@@ -6,5 +6,6 @@ import authConfig from "@/auth.config";
 export const {} = NextAuth({
   adapter: DrizzleAdapter(db),
   session: { strategy: "jwt" },
+  pages: { signIn: "/auth/signIn" },
   ...authConfig,
 });
