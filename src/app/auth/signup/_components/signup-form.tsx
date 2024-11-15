@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { SignupSchema, SignUpType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const SignupForm = () => {
   const form = useForm<SignUpType>({
@@ -27,7 +28,9 @@ const SignupForm = () => {
   });
 
   const onSubmit = async (values: SignUpType) => {
-    await signUpAction(values);
+    await signUpAction(values)
+      .then(() => toast.success("Account created successfully"))
+      .catch((error) => toast.error(error.message));
 
     form.reset();
   };
