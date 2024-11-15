@@ -30,11 +30,13 @@ const Navbar = async () => {
               <Link href="/auth/signup">Sign Up</Link>
             </Button>
           </li>
-          <li>
-            <form action={signOutAction}>
-              <Button>Sign Out</Button>
-            </form>
-          </li>
+          {session && session.user && (
+            <li>
+              <form action={signOutAction}>
+                <Button>Sign Out</Button>
+              </form>
+            </li>
+          )}
         </ul>
       </div>
     </nav>
