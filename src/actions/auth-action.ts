@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn } from "@/auth";
+import { signIn, signOut } from "@/auth";
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { actionClient } from "@/lib/safe-action";
@@ -40,3 +40,5 @@ export const signInAction = actionClient
   .action(async ({ parsedInput: { email, password } }) => {
     await signIn("credentials", { email, password, redirect: false });
   });
+
+export const signOutAction = async () => await signOut();
