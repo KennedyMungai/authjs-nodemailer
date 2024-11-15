@@ -20,7 +20,9 @@ export const signUpAction = actionClient
         .from(users)
         .where(eq(users.email, email));
 
-      if (existingUser) throw new Error("User already exists");
+      if (existingUser) {
+        throw new Error("User already exists");
+      }
 
       const hashedPassword = await bcrypt.hash(password, 10);
 

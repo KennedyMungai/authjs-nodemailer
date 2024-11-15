@@ -31,14 +31,15 @@ const SignupForm = () => {
   });
 
   const onSubmit = async (values: SignUpType) => {
-    await signUpAction(values)
-      .then(() => {
-        toast.success("Account created successfully");
-        router.push("/");
-      })
-      .catch((error) => toast.error(error.message));
+    const response = await signUpAction(values);
 
-    form.reset();
+    if (response?.data?.id) {
+      toast.success("Account created successfully");
+      form.reset();
+      router.push("/");
+    }
+
+    toast.error("User already exists");
   };
 
   return (
