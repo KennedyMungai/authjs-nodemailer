@@ -1,8 +1,8 @@
 import authConfig from "@/auth.config";
 import { db } from "@/db";
+import * as schema from "@/db/schema";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import NextAuth from "next-auth";
-import * as schema from "@/db/schema";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   adapter: DrizzleAdapter(db, {
@@ -17,6 +17,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   callbacks: {
     jwt({ token, user }) {
       if (user?.id) token.id = user.id;
+
+      if (user?.role) token.role = user.role;
 
       return token;
     },
