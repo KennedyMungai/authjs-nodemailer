@@ -21,6 +21,7 @@ const ProfilePage = async () => {
                 <th className="bg-gray-50 px-6 py-3 text-start">Id</th>
                 <th className="bg-gray-50 px-6 py-3 text-start">Name</th>
                 <th className="bg-gray-50 px-6 py-3 text-start">Email</th>
+                <th className="bg-gray-50 px-6 py-3 text-start">Role</th>
               </tr>
             </thead>
             <tbody>
@@ -28,6 +29,7 @@ const ProfilePage = async () => {
                 <th className="px-6 py-3">{session?.user?.id}</th>
                 <th className="px-6 py-3">{session?.user?.name}</th>
                 <th className="px-6 py-3">{session?.user?.email}</th>
+                <th className="px-6 py-3">{session?.user?.role}</th>
               </tr>
             </tbody>
           </table>
