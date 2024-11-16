@@ -10,6 +10,7 @@ declare module "next-auth" {
 
 declare module "next-auth/jwt" {
   interface JWT extends DefaultJWT {
-    id: (typeof users.$inferInsert)["id"];
+    id: (typeof users.$inferSelect)["id"];
+    role: (typeof users.$inferSelect)["role"];
   }
 }
