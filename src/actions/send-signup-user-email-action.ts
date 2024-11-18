@@ -14,13 +14,13 @@ export const sendSignupUserEmailAction = async ({
   console.log(`Sending email to ${email} with token ${verificationToken}`);
 
   await transport.sendMail({
-    from: `Team Rocket ${process.env.NODE_MAILER_GOOGLE_SMTP_USER}`,
+    from: `Team Rocket`,
     to: email,
     subject: "Verify your email address",
     html: `
         <div>
             <p>
-                <a href="http://${process.env.NEXT_PUBLIC_APP_URL}/auth/signup/verify-email?token=${verificationToken}">Click here to verify your email address</a>
+                <a href="${process.env.NEXT_PUBLIC_APP_URL}/auth/signup/verify-email?token=${verificationToken}">Click here to verify your email address</a>
             </p>
         </div>
     `,
