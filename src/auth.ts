@@ -1,3 +1,4 @@
+import { OAuthVerifyEmailAction } from "@/actions/oauth-verify-email-action";
 import authConfig from "@/auth.config";
 import { db } from "@/db";
 import * as schema from "@/db/schema";
@@ -27,6 +28,13 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       session.user.role = token.role;
 
       return session;
+    },
+  },
+  events: {
+    async linkAccount({ user, account }) {
+      if (["google", "github"].includes(account.provider)) {
+        if (user.email) await OAuthVerifyEmailAction(user.email!);
+      }
     },
   },
   ...authConfig,
