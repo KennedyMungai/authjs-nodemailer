@@ -1,5 +1,7 @@
 "use server";
 
+import { createVerificationTokenAction } from "@/actions/create-verification-token-action";
+import { sendSignupUserEmailAction } from "@/actions/send-signup-user-email-action";
 import { signIn, signOut } from "@/auth";
 import { db } from "@/db";
 import { users } from "@/db/schema";
@@ -8,7 +10,6 @@ import { actionClient } from "@/lib/safe-action";
 import { findUserByEmail } from "@/lib/user-queries";
 import { SignInSchema, SignupSchema } from "@/lib/validation";
 import bcrypt from "bcryptjs";
-import { createVerificationTokenAction } from "@/actions/create-verification-token-action";
 
 export const signUpAction = actionClient
   .schema(SignupSchema)
@@ -26,7 +27,10 @@ export const signUpAction = actionClient
             existingUser.email!,
           );
 
-          // TODO: Send the verification email
+          await sendSignupUserEmailAction({
+            email: existingUser.email as string,
+            verificationToken: verificationToken.token as string,
+          });
         } else {
           throw new Error("User already exists");
         }
@@ -57,7 +61,10 @@ export const signUpAction = actionClient
         newUser.email!,
       );
 
-      // TODO: Send verification email
+      await sendSignupUserEmailAction({
+        email: newUser.email as string,
+        verificationToken: verificationToken.token as string,
+      });
 
       console.log({ verificationToken });
 
