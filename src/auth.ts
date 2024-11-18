@@ -1,3 +1,4 @@
+import { changeUserRoleAction } from "@/actions/change-user-role-action";
 import { OAuthVerifyEmailAction } from "@/actions/oauth-verify-email-action";
 import authConfig from "@/auth.config";
 import { db } from "@/db";
@@ -72,6 +73,15 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     async linkAccount({ user, account }) {
       if (["google", "github"].includes(account.provider)) {
         if (user.email) await OAuthVerifyEmailAction(user.email!);
+      }
+    },
+    async createUser({ user }) {
+      if (
+        user.email &&
+        process.env.SUPER_ADMIN_EMAIL_ADDRESS!.toLowerCase() ===
+          user.email.toLowerCase()
+      ) {
+        await changeUserRoleAction(user.email, USER_ROLES.ADMIN);
       }
     },
   },
