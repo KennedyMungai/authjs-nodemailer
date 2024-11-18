@@ -24,6 +24,8 @@ import { UpdateUserInfoSchema, UpdateUserInfoType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PencilIcon } from "lucide-react";
 import { type User } from "next-auth";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 type Props = {
@@ -31,6 +33,10 @@ type Props = {
 };
 
 const UpdateUserInfoForm = ({ user }: Props) => {
+  const { data: session, update } = useSession();
+
+  const router = useRouter();
+
   const form = useForm<UpdateUserInfoType>({
     resolver: zodResolver(UpdateUserInfoSchema),
     defaultValues: {
@@ -40,7 +46,16 @@ const UpdateUserInfoForm = ({ user }: Props) => {
   });
 
   const onSubmit = async (values: UpdateUserInfoType) => {
-    await updateUserInfoAction(values);
+    const response = await updateUserInfoAction(values);
+
+    if (response?.data?.id) {
+      await update({
+        ...session,
+        user: { ...session?.user, name: response.data.name },
+      });
+    }
+
+    router.refresh();
   };
 
   return (
