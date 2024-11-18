@@ -1,7 +1,7 @@
+import UpdateUserInfoForm from "@/app/profile/_components/update-user-info-form";
 import { auth } from "@/auth";
 import { protectServer } from "@/lib/session-hooks";
 import { User } from "next-auth";
-import UpdateUserInfoForm from "@/app/profile/_components/update-user-info-form";
 
 const ProfilePage = async () => {
   await protectServer();
@@ -14,7 +14,7 @@ const ProfilePage = async () => {
         <h1 className="text-3xl font-bold tracking-tight">Profile</h1>
         <div className="my-4 h-0.5 bg-muted" />
         <>
-          <div className="flex flex-col items-center justify-between gap-4">
+          <div className="flex items-center justify-between gap-4">
             <h2 className="text-2xl font-bold tracking-tight">
               User Information
             </h2>
