@@ -13,7 +13,7 @@ export const updateUserInfoAction = actionClient
       .update(users)
       .set({ name })
       .where(eq(users.id, id))
-      .returning({ id: users.id });
+      .returning({ id: users.id, name: users.name });
 
     return updatedUser;
   });
