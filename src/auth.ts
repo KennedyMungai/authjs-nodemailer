@@ -29,6 +29,19 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
       return session;
     },
+    signIn({ user, account, profile }) {
+      if (account?.provider === "google") return !!profile?.email_verified;
+
+      if (account?.provider === "github") return true;
+
+      if (account?.provider === "credentials") {
+        if (user.emailVerified) return true;
+
+        return true;
+      }
+
+      return false;
+    },
   },
   events: {
     async linkAccount({ user, account }) {
