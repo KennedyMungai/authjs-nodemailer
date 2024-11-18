@@ -8,6 +8,7 @@ import { actionClient } from "@/lib/safe-action";
 import { findUserByEmail } from "@/lib/user-queries";
 import { SignInSchema, SignupSchema } from "@/lib/validation";
 import bcrypt from "bcryptjs";
+import { createVerificationTokenAction } from "@/actions/create-verification-token-action";
 
 export const signUpAction = actionClient
   .schema(SignupSchema)
@@ -20,7 +21,15 @@ export const signUpAction = actionClient
       const existingUser = await findUserByEmail(email);
 
       if (existingUser) {
-        throw new Error("User already exists");
+        if (!existingUser.emailVerified) {
+          const verificationToken = await createVerificationTokenAction(
+            existingUser.email!,
+          );
+
+          // TODO: Send the verification email
+        } else {
+          throw new Error("User already exists");
+        }
       }
 
       const hashedPassword = await bcrypt.hash(password, 10);
@@ -36,9 +45,21 @@ export const signUpAction = actionClient
           password: hashedPassword,
           role: isAdmin ? USER_ROLES.ADMIN : USER_ROLES.USER,
         })
-        .returning({ id: users.id });
+        .returning({
+          id: users.id,
+          email: users.email,
+          emailVerified: users.emailVerified,
+        });
 
       if (!newUser) throw new Error("Failed to create account");
+
+      const verificationToken = await createVerificationTokenAction(
+        newUser.email!,
+      );
+
+      // TODO: Send verification email
+
+      console.log({ verificationToken });
 
       return { id: newUser.id };
     },
