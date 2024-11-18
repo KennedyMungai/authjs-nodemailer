@@ -4,7 +4,6 @@ import { db } from "@/db";
 import * as schema from "@/db/schema";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import NextAuth from "next-auth";
-import { NextResponse } from "next/server";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   adapter: DrizzleAdapter(db, {
@@ -17,24 +16,24 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   session: { strategy: "jwt" },
   pages: { signIn: "/auth/signIn" },
   callbacks: {
-    authorized({ auth, request }) {
-      const { nextUrl } = request;
+    // authorized({ auth, request }) {
+    //   const { nextUrl } = request;
 
-      const isLoggedIn = !!auth?.user;
-      const isOnProfile = nextUrl.pathname.startsWith("/profile");
-      const isOnAuth = nextUrl.pathname.startsWith("/auth");
+    //   const isLoggedIn = !!auth?.user;
+    //   const isOnProfile = nextUrl.pathname.startsWith("/profile");
+    //   const isOnAuth = nextUrl.pathname.startsWith("/auth");
 
-      if (isOnProfile) {
-        if (isLoggedIn) return true;
-        return NextResponse.redirect(new URL("/auth/signin", nextUrl));
-      }
+    //   if (isOnProfile) {
+    //     if (isLoggedIn) return true;
+    //     return NextResponse.redirect(new URL("/auth/signin", nextUrl));
+    //   }
 
-      if (isOnAuth) {
-        if (isLoggedIn) return NextResponse.redirect(new URL("/", nextUrl));
-      }
+    //   if (isOnAuth) {
+    //     if (isLoggedIn) return NextResponse.redirect(new URL("/", nextUrl));
+    //   }
 
-      return true;
-    },
+    //   return true;
+    // },
     jwt({ token, user }) {
       if (user?.id) token.id = user.id;
 
