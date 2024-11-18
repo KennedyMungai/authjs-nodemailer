@@ -1,5 +1,6 @@
 "use client";
 
+import { updateUserInfoAction } from "@/actions/update-user-info-action";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -39,7 +40,7 @@ const UpdateUserInfoForm = ({ user }: Props) => {
   });
 
   const onSubmit = async (values: UpdateUserInfoType) => {
-    console.log(values);
+    await updateUserInfoAction(values);
   };
 
   return (
