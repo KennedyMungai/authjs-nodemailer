@@ -28,3 +28,10 @@ export const SignInSchema = z.object({
 });
 
 export type SignInType = z.infer<typeof SignInSchema>;
+
+export const UpdateUserInfoSchema = z.object({
+  id: z.string().uuid("Invalid id"),
+  name: z.string().min(6, "The name should have at least 6 characters"),
+});
+
+export type UpdateUserInfoType = z.infer<typeof UpdateUserInfoSchema>;
