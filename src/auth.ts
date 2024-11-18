@@ -2,6 +2,7 @@ import { OAuthVerifyEmailAction } from "@/actions/oauth-verify-email-action";
 import authConfig from "@/auth.config";
 import { db } from "@/db";
 import * as schema from "@/db/schema";
+import { USER_ROLES } from "@/lib/constants";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import NextAuth from "next-auth";
 
@@ -36,8 +37,14 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     // },
     jwt({ token, user }) {
       if (user?.id) token.id = user.id;
-
       if (user?.role) token.role = user.role;
+      if (
+        user?.email &&
+        process.env.SUPER_ADMIN_EMAIL_ADDRESS!.toLowerCase() ===
+          user?.email.toLowerCase()
+      ) {
+        token.role = USER_ROLES.ADMIN;
+      }
 
       return token;
     },
