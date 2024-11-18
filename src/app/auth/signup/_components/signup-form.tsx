@@ -80,7 +80,7 @@ const SignupForm = () => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
                   {...field}
