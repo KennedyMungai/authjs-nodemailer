@@ -1,5 +1,7 @@
 import { auth } from "@/auth";
 import { protectServer } from "@/lib/session-hooks";
+import { User } from "next-auth";
+import UpdateUserInfoForm from "@/app/profile/_components/update-user-info-form";
 
 const ProfilePage = async () => {
   await protectServer();
@@ -12,9 +14,13 @@ const ProfilePage = async () => {
         <h1 className="text-3xl font-bold tracking-tight">Profile</h1>
         <div className="my-4 h-0.5 bg-muted" />
         <>
-          <h2 className="text-2xl font-bold tracking-tight">
-            User Information
-          </h2>
+          <div className="flex flex-col items-center justify-between gap-4">
+            <h2 className="text-2xl font-bold tracking-tight">
+              User Information
+            </h2>
+            <UpdateUserInfoForm user={session?.user as User} />
+          </div>
+
           <table className="mt-4 table-auto divide-y">
             <thead>
               <tr className="divide-x">

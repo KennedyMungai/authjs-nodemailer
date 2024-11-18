@@ -59,39 +59,39 @@ const UpdateUserInfoForm = ({ user }: Props) => {
             Update your user information below
           </DialogDescription>
         </DialogHeader>
+        <Separator />
+        <div>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FormField
+                control={form.control}
+                name={"name"}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="Enter your name" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="id"
+                render={() => <FormMessage />}
+              />
+              <Button
+                type="submit"
+                disabled={form.formState.isSubmitting}
+                className="w-full"
+              >
+                Update
+              </Button>
+            </form>
+          </Form>
+        </div>
       </DialogContent>
-      <Separator />
-      <div>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name={"name"}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder="Enter your name" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="id"
-              render={() => <FormMessage />}
-            />
-            <Button
-              type="submit"
-              disabled={form.formState.isSubmitting}
-              className="w-full"
-            >
-              Update
-            </Button>
-          </form>
-        </Form>
-      </div>
     </Dialog>
   );
 };
