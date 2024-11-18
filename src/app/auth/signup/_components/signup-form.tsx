@@ -34,7 +34,7 @@ const SignupForm = () => {
     const response = await signUpAction(values);
 
     if (response?.data?.id) {
-      toast.success("Account created successfully");
+      toast.success("Verification link sent to your email address");
       form.reset();
       router.push("/");
     } else {
