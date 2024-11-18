@@ -62,8 +62,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
       if (account?.provider === "credentials") {
         if (user.emailVerified) return true;
-
-        return true;
       }
 
       return false;
