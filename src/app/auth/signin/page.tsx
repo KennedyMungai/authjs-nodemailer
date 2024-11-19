@@ -1,3 +1,4 @@
+import ForgotPasswordForm from "@/app/auth/signin/_components/forgot-password-form";
 import SigninForm from "@/app/auth/signin/_components/signin-form";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
@@ -14,6 +15,9 @@ const SigninPage = async () => {
         <div className="my-4 h-0.5 bg-muted" />
 
         <SigninForm />
+        <div className="mx-auto max-w-lg p-4">
+          <ForgotPasswordForm />
+        </div>
       </div>
     </main>
   );

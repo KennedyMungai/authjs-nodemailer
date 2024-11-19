@@ -35,3 +35,20 @@ export const UpdateUserInfoSchema = z.object({
 });
 
 export type UpdateUserInfoType = z.infer<typeof UpdateUserInfoSchema>;
+
+export const ForgotPasswordSchema = z.object({ email: z.string().email() });
+
+export type ForgotPasswordType = z.infer<typeof ForgotPasswordSchema>;
+
+export const ResetPasswordSchema = z
+  .object({
+    email: z.string().email(),
+    password: z.string().min(6, "Password should be at least 6 characters"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
+export type ResetPasswordType = z.infer<typeof ResetPasswordSchema>;
